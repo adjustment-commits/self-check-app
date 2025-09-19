@@ -29,6 +29,25 @@
   .check > .row{display:flex;gap:.6rem;align-items:flex-start}
   .status{display:flex;gap:.7rem;align-items:flex-start;border:1px solid var(--bd);border-radius:10px;padding:.8rem;background:#101219}
   .badge{font-weight:800;border-radius:999px;padding:.2rem .55rem}
+/* ── モバイルでのバッジ折り返し対策 ───────────────────────── */
+.status{gap:.7rem; align-items:center}
+
+/* バッジはなるべく1行。画面幅に応じて自動縮小 */
+.badge{
+  white-space: nowrap;
+  line-height: 1.15;
+  padding: .25rem .6rem;
+  font-size: clamp(.72rem, 2.6vw, .9rem); /* 小画面で少し縮む */
+}
+
+/* 画面が狭いときは、バッジを1段目、本文を2段目にして整列 */
+@media (max-width: 640px){
+  .status{flex-wrap: wrap}
+  .status > .badge{order:0}
+  .status > div{order:1; flex-basis: 100%}  /* 右側コンテンツは下段で横幅フル */
+  /* モノスペースのサマリーは字間を少し詰めて見やすく */
+  [data-summary]{font-size: .92rem; line-height: 1.35}
+}
   .ok{background:var(--good);color:#031}.inf{background:var(--info);color:#021}.wrn{background:var(--warn);color:#111}.bad{background:var(--bad);color:#111}
   .hint{color:var(--muted);font-size:.9rem}
   details.hint{margin-left:1.95rem;font-size:.85rem}
